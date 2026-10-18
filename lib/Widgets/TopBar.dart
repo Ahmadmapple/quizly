@@ -17,7 +17,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Image.asset(
             'lib/Assets/Ikon Q Ungu Berlapis Modern.png',
-            width: 54,
+            width: 48,
             fit: BoxFit.contain,
           ),
           const SizedBox(width: 6),

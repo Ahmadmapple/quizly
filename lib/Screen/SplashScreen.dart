@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 fit: BoxFit.contain,
               ),
               const Text(
-                "Quizly",
+                "quizly",
                 style: TextStyle(
                   color: Colors.black,
                   fontFamily: "Manrope",
