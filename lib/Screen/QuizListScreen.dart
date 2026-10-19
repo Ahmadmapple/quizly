@@ -160,7 +160,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
                   iconBackgroundColor: quiz['iconBackgroundColor'],
                   questionCount: quiz['questionCount'],
                   onTap: () {
-                    // Navigate to quiz details or quiz screen
+                    context.go('/namescreen', extra: quiz);
                   },
                 );
               },
