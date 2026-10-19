@@ -28,23 +28,29 @@ class BottomBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildNavItem(
-              index: 0,
-              icon: Icons.home_outlined,
-              selectedIcon: Icons.home_rounded,
-              label: 'Beranda',
+            Expanded(
+              child: _buildNavItem(
+                index: 0,
+                icon: Icons.home_outlined,
+                selectedIcon: Icons.home_rounded,
+                label: 'Beranda',
+              ),
             ),
-            _buildNavItem(
-              index: 1,
-              icon: Icons.grid_view_outlined,
-              selectedIcon: Icons.grid_view_rounded,
-              label: 'Semua Kuis',
+            Expanded(
+              child: _buildNavItem(
+                index: 1,
+                icon: Icons.grid_view_outlined,
+                selectedIcon: Icons.grid_view_rounded,
+                label: 'Semua Kuis',
+              ),
             ),
-            _buildNavItem(
-              index: 2,
-              icon: Icons.history_outlined,
-              selectedIcon: Icons.history_rounded,
-              label: 'Riwayat',
+            Expanded(
+              child: _buildNavItem(
+                index: 2,
+                icon: Icons.history_outlined,
+                selectedIcon: Icons.history_rounded,
+                label: 'Riwayat',
+              ),
             ),
           ],
         ),
