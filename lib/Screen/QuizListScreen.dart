@@ -69,6 +69,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
             const Text(
               'TEMUKAN PENGETAHUAN BARU',
               style: TextStyle(
+                fontFamily: 'DMSans',
                 fontSize: 11,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 0.8,
@@ -81,6 +82,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
             const Text(
               'Semua kuis.',
               style: TextStyle(
+                fontFamily: 'Manrope',
                 fontSize: 26,
                 fontWeight: FontWeight.bold,
                 color: textColor,
@@ -92,6 +94,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
             const Text(
               'Pilih kuis yang menarik dan uji wawasanmu.',
               style: TextStyle(
+                fontFamily: 'DMSans',
                 fontSize: 13,
                 color: subtitleColor,
               ),
@@ -110,6 +113,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
                 decoration: const InputDecoration(
                   hintText: 'Cari kuis...',
                   hintStyle: TextStyle(
+                    fontFamily: 'DMSans',
                     fontSize: 13,
                     color: Color(0xFFA099AE),
                   ),
@@ -132,6 +136,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
             const Text(
               '3 kuis tersedia',
               style: TextStyle(
+                fontFamily: 'DMSans',
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
                 color: subtitleColor,

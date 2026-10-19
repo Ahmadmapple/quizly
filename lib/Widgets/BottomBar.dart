@@ -96,7 +96,7 @@ class BottomBar extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              fontFamily: "Manrope",
+              fontFamily: "DMSans",
               fontSize: 12,
               fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
               color: isSelected ? activeColor : Colors.grey,

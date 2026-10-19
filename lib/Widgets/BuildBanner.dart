@@ -51,6 +51,7 @@ class BuildBanner extends StatelessWidget {
                       Text(
                         'BELAJAR JADI LEBIH SERU',
                         style: TextStyle(
+                          fontFamily: 'DMSans',
                           fontSize: 7,
                           letterSpacing: 0.3,
                           color: mutedColor,
@@ -64,6 +65,7 @@ class BuildBanner extends StatelessWidget {
                 const Text(
                   'Rasa ingin tahu.',
                   style: TextStyle(
+                    fontFamily: 'Manrope',
                     fontSize: 22,
                     height: 1.15,
                     fontWeight: FontWeight.w800,
@@ -74,6 +76,7 @@ class BuildBanner extends StatelessWidget {
                 const Text(
                   'Jadi lebih tahu.',
                   style: TextStyle(
+                    fontFamily: 'Manrope',
                     fontSize: 22,
                     height: 1.2,
                     fontWeight: FontWeight.w800,
@@ -85,6 +88,7 @@ class BuildBanner extends StatelessWidget {
                 const Text(
                   'Satu kuis singkat.',
                   style: TextStyle(
+                    fontFamily: 'DMSans',
                     fontSize: 10,
                     color: mutedColor,
                   ),
@@ -93,6 +97,7 @@ class BuildBanner extends StatelessWidget {
                 const Text(
                   'Banyak hal baru untuk diketahui.',
                   style: TextStyle(
+                    fontFamily: 'DMSans',
                     fontSize: 10,
                     color: mutedColor,
                   ),

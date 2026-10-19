@@ -46,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           'Pilih kuismu',
                           style: TextStyle(
+                            fontFamily: 'Manrope',
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
                             color: textColor,
@@ -54,7 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         SizedBox(height: 5),
                         Text(
                           '10 pertanyaan, satu pengetahuan baru.',
-                          style: TextStyle(fontSize: 10, color: mutedColor),
+                          style: TextStyle(
+                            fontFamily: 'DMSans',
+                            fontSize: 10,
+                            color: mutedColor,
+                          ),
                         ),
                       ],
                     ),
@@ -69,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(
                             'Semua',
                             style: TextStyle(
+                              fontFamily: 'DMSans',
                               fontSize: 10,
                               color: primaryPurple,
                               fontWeight: FontWeight.w500,

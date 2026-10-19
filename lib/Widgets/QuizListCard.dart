@@ -62,6 +62,7 @@ class QuizListCard extends StatelessWidget {
                     Text(
                       title,
                       style: const TextStyle(
+                        fontFamily: 'Manrope',
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
                         color: textColor,
@@ -71,6 +72,7 @@ class QuizListCard extends StatelessWidget {
                     Text(
                       description,
                       style: const TextStyle(
+                        fontFamily: 'DMSans',
                         fontSize: 10,
                         height: 1.5,
                         color: mutedColor,
@@ -88,6 +90,7 @@ class QuizListCard extends StatelessWidget {
                         Text(
                           '$questionCount pertanyaan',
                           style: const TextStyle(
+                            fontFamily: 'DMSans',
                             fontSize: 9,
                             color: mutedColor,
                           ),
@@ -116,6 +119,7 @@ class QuizListCard extends StatelessWidget {
                     child: Text(
                       'Mulai kuis',
                       style: TextStyle(
+                        fontFamily: 'DMSans',
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
                         color: purple,
