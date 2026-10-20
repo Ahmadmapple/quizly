@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:quizly/Data/dummy_data.dart';
 import 'package:quizly/Widgets/BuildBanner.dart';
 import 'package:quizly/Widgets/QuizListCard.dart';
 
@@ -94,73 +95,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 18),
 
-              QuizListCard(
-                icon: Icons.language,
-                iconColor: const Color(0xFF6E9F88),
-                iconBackgroundColor: const Color(0xFFE7F1EB),
-                title: 'Seberapa luas wawasanmu?',
-                description:
-                    'Jelajahi fakta menarik dari berbagai penjuru dunia.',
-                questionCount: 10,
-                onTap: () => context.go(
-                  '/namescreen',
-                  extra: {
-                    'title': 'Seberapa luas wawasanmu?',
-                    'description':
-                        'Jelajahi fakta menarik dari berbagai penjuru dunia.',
-                    'icon': Icons.language,
-                    'iconColor': const Color(0xFF6E9F88),
-                    'iconBackgroundColor': const Color(0xFFE7F1EB),
-                    'questionCount': 10,
-                  },
-                ),
-              ),
-
-              const SizedBox(height: 12),
-
-              QuizListCard(
-                icon: Icons.code,
-                iconColor: const Color(0xFF9C7BD0),
-                iconBackgroundColor: const Color(0xFFF0E8FA),
-                title: 'Kenali dunia digital',
-                description:
-                    'Dari internet sampai coding. Seberapa tech-savvy kamu?',
-                questionCount: 10,
-                onTap: () => context.go(
-                  '/namescreen',
-                  extra: {
-                    'title': 'Kenali dunia digital',
-                    'description': 'Dari internet sampai coding. Seberapa tech-savvy kamu?',
-                    'icon': Icons.code,
-                    'iconColor': const Color(0xFF9C7BD0),
-                    'iconBackgroundColor': const Color(0xFFF0E8FA),
-                    'questionCount': 10,
-                  },
-                ),
-              ),
-
-              const SizedBox(height: 12),
-
-              QuizListCard(
-                icon: Icons.science_outlined,
-                iconColor: const Color(0xFFD5A071),
-                iconBackgroundColor: const Color(0xFFFAF0E5),
-                title: 'Rahasia di balik sains',
-                description:
-                    'Temukan keajaiban sains dalam kehidupan sehari-hari.',
-                questionCount: 10,
-                onTap: () => context.go(
-                  '/namescreen',
-                  extra: {
-                    'title': 'Rahasia di balik sains',
-                    'description':
-                        'Temukan keajaiban sains dalam kehidupan sehari-hari.',
-                    'icon': Icons.science_outlined,
-                    'iconColor': const Color(0xFFD5A071),
-                    'iconBackgroundColor': const Color(0xFFFAF0E5),
-                    'questionCount': 10,
-                  },
-                ),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: dummyQuizzes.length,
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 12),
+                itemBuilder: (context, index) {
+                  final quiz = dummyQuizzes[index];
+                  return QuizListCard(
+                    icon: quiz.icon,
+                    iconColor: quiz.iconColor,
+                    iconBackgroundColor: quiz.iconBackgroundColor,
+                    title: quiz.title,
+                    description: quiz.description,
+                    questionCount: quiz.questionCount,
+                    onTap: () => context.go(
+                      '/namescreen',
+                      extra: {
+                        'title': quiz.title,
+                        'description': quiz.description,
+                        'icon': quiz.icon,
+                        'iconColor': quiz.iconColor,
+                        'iconBackgroundColor': quiz.iconBackgroundColor,
+                        'questionCount': quiz.questionCount,
+                      },
+                    ),
+                  );
+                },
               ),
             ],
           ),

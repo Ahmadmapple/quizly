@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-
 import '../Provider/HistoryProvider.dart';
 import '../Widgets/BottomBar.dart';
 import '../Widgets/TopBar.dart';
@@ -126,7 +125,6 @@ class _HistoryState extends State<HistoryScreen> {
           ),
           const SizedBox(height: 20),
 
-          // Title
           Text(
             'Cerita belajarmu dimulai di sini.',
             textAlign: TextAlign.center,
@@ -139,7 +137,6 @@ class _HistoryState extends State<HistoryScreen> {
           ),
           const SizedBox(height: 8),
 
-          // Subtitle Text
           Text(
             'Selesaikan kuis pertamamu dan lihat progresmu bertumbuh.',
             textAlign: TextAlign.center,

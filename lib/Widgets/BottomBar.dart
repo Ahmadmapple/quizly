@@ -66,9 +66,7 @@ class BottomBar extends StatelessWidget {
   }) {
     bool isSelected = currentIndex == index;
 
-    // Purple color for active state
     Color activeColor = const Color(0xFF5B358C);
-    // Light purple pill background color matching your #EEE5F8 theme
     Color pillBackgroundColor = const Color(0xFFEEE5F8);
 
     return GestureDetector(
@@ -77,7 +75,6 @@ class BottomBar extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // The Pill Background for the Icon when active
           AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
@@ -92,7 +89,6 @@ class BottomBar extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          // Label text below the icon
           Text(
             label,
             style: TextStyle(

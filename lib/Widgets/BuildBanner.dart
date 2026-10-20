@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'AnswerLine.dart';
 
@@ -106,7 +105,6 @@ class BuildBanner extends StatelessWidget {
             ),
           ),
 
-          // Kartu jawaban
           Positioned(
             right: 25,
             bottom: 28,
@@ -158,7 +156,6 @@ class BuildBanner extends StatelessWidget {
             ),
           ),
 
-          // Kartu tanda tanya
           Positioned(
             right: 1,
             bottom: 36,
