@@ -33,6 +33,11 @@ class _NameScreenState extends State<NameScreen> {
   @override
   void initState() {
     super.initState();
+    final savedName = context.read<NameProvider>().userName;
+    if (savedName.isNotEmpty) {
+      _nameController.text = savedName;
+      _isInputValid = true;
+    }
     _nameController.addListener(_onNameChanged);
   }
 
@@ -60,12 +65,11 @@ class _NameScreenState extends State<NameScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFC),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Top Left Back Button (<-)
               InkWell(
                 onTap: () {
                   if (context.canPop()) {
@@ -110,7 +114,6 @@ class _NameScreenState extends State<NameScreen> {
               ),
               const SizedBox(height: 6),
 
-              // Main Heading / Title
               const Text(
                 'Siap menguji wawasan?',
                 style: TextStyle(
@@ -197,8 +200,7 @@ class _NameScreenState extends State<NameScreen> {
                   color: subtitleColor,
                 ),
               ),
-
-              const Spacer(),
+              const SizedBox(height: 32),
 
               SizedBox(
                 width: double.infinity,
@@ -206,8 +208,8 @@ class _NameScreenState extends State<NameScreen> {
                 child: ElevatedButton(
                   onPressed: _isInputValid
                       ? () {
-                          final String enteredName = _nameController.text
-                              .trim();
+                          final String enteredName =
+                              _nameController.text.trim();
                           context.read<NameProvider>().setUserName(enteredName);
 
                           context.go(

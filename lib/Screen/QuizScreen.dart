@@ -5,6 +5,7 @@ import 'package:quizly/Data/dummy_data.dart';
 
 import '../Provider/HistoryProvider.dart';
 import '../Provider/NameProvider.dart';
+import '../Provider/QuizProvider.dart';
 import '../Widgets/TopBar.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -20,14 +21,19 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  int _currentIndex = 0;
-  final Map<int, int> _selectedAnswers = {};
-
   static const Color textColor = Color(0xFF29243A);
   static const Color subtitleColor = Color(0xFF8A8199);
   static const Color primaryPurple = Color(0xFF9363C5);
   static const Color palePurple = Color(0xFFD8CBEC);
   static const Color borderColor = Color(0xFFEAE5EF);
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<QuizProvider>().startQuiz(widget.title);
+    });
+  }
 
   QuizModel get _selectedQuiz {
     return dummyQuizzes.firstWhere(
@@ -55,21 +61,25 @@ class _QuizScreenState extends State<QuizScreen> {
     return '${now.day} ${months[now.month - 1]} ${now.year}';
   }
 
-  void _finishQuiz() {
-    final quiz = _selectedQuiz;
+  void _finishQuiz(
+    QuizProvider quizProvider,
+    QuizModel quiz,
+    String userName,
+  ) {
     final questions = quiz.questions;
+    final selectedAnswers = quizProvider.selectedAnswers;
     int correctCount = 0;
+
     for (int i = 0; i < questions.length; i++) {
-      if (_selectedAnswers[i] == questions[i]['correctAnswer']) {
+      if (selectedAnswers[i] == questions[i]['correctAnswer']) {
         correctCount++;
       }
     }
 
     int score = (correctCount / questions.length * 100).round();
 
-    final String savedName = context.read<NameProvider>().userName.isNotEmpty
-        ? context.read<NameProvider>().userName
-        : 'Pengguna';
+    final String savedName =
+        userName.isNotEmpty ? userName : 'Pengguna';
 
     context.read<HistoryProvider>().addHistory(
           title: quiz.title,
@@ -83,6 +93,8 @@ class _QuizScreenState extends State<QuizScreen> {
           iconColor: quiz.iconColor,
           iconBackgroundColor: quiz.iconBackgroundColor,
         );
+
+    quizProvider.resetQuiz();
 
     context.go(
       '/result',
@@ -102,19 +114,26 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final quizProvider = context.watch<QuizProvider>();
+    final nameProvider = context.watch<NameProvider>();
+
     final quiz = _selectedQuiz;
     final questions = quiz.questions;
-    final currentQuestion = questions[_currentIndex];
-    final int answeredCount = _selectedAnswers.length;
+    final currentIndex = quizProvider.currentIndex;
+    final selectedAnswers = quizProvider.selectedAnswers;
+
+    final currentQuestion = questions[
+        currentIndex < questions.length ? currentIndex : 0];
+    final int answeredCount = selectedAnswers.length;
     final int progressPercent =
         (answeredCount / questions.length * 100).round();
 
     final bool isAnswerSelectedForCurrent =
-        _selectedAnswers[_currentIndex] != null;
-    final bool hasPreviousQuestion = _currentIndex > 0;
-    final bool isLastQuestion = _currentIndex == questions.length - 1;
+        selectedAnswers[currentIndex] != null;
+    final bool hasPreviousQuestion = currentIndex > 0;
+    final bool isLastQuestion = currentIndex == questions.length - 1;
     final bool areAllQuestionsAnswered =
-        _selectedAnswers.length == questions.length;
+        selectedAnswers.length == questions.length;
 
     final bool isNextOrSubmitEnabled = isLastQuestion
         ? areAllQuestionsAnswered
@@ -142,7 +161,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       children: [
                         const TextSpan(text: 'Pertanyaan '),
                         TextSpan(
-                          text: '${_currentIndex + 1}',
+                          text: '${currentIndex + 1}',
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: textColor,
@@ -173,7 +192,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 ),
                 child: FractionallySizedBox(
                   alignment: Alignment.centerLeft,
-                  widthFactor: (_currentIndex + 1) / questions.length,
+                  widthFactor: (currentIndex + 1) / questions.length,
                   child: Container(
                     decoration: BoxDecoration(
                       color: primaryPurple,
@@ -227,15 +246,15 @@ class _QuizScreenState extends State<QuizScreen> {
                           65 + index,
                         );
                         final bool isSelected =
-                            _selectedAnswers[_currentIndex] == index;
+                            selectedAnswers[currentIndex] == index;
 
                         return Container(
                           margin: const EdgeInsets.only(bottom: 12),
                           child: InkWell(
                             onTap: () {
-                              setState(() {
-                                _selectedAnswers[_currentIndex] = index;
-                              });
+                              context
+                                  .read<QuizProvider>()
+                                  .selectAnswer(currentIndex, index);
                             },
                             borderRadius: BorderRadius.circular(14),
                             child: Container(
@@ -335,9 +354,9 @@ class _QuizScreenState extends State<QuizScreen> {
                       child: OutlinedButton(
                         onPressed: hasPreviousQuestion
                             ? () {
-                                setState(() {
-                                  _currentIndex--;
-                                });
+                                context
+                                    .read<QuizProvider>()
+                                    .setCurrentIndex(currentIndex - 1);
                               }
                             : null,
                         style: OutlinedButton.styleFrom(
@@ -389,11 +408,15 @@ class _QuizScreenState extends State<QuizScreen> {
                         onPressed: isNextOrSubmitEnabled
                             ? () {
                                 if (isLastQuestion) {
-                                  _finishQuiz();
+                                  _finishQuiz(
+                                    quizProvider,
+                                    quiz,
+                                    nameProvider.userName,
+                                  );
                                 } else {
-                                  setState(() {
-                                    _currentIndex++;
-                                  });
+                                  context
+                                      .read<QuizProvider>()
+                                      .setCurrentIndex(currentIndex + 1);
                                 }
                               }
                             : null,
@@ -437,7 +460,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 const SizedBox(height: 8),
                 Center(
                   child: Text(
-                    'Harap isi semua ${questions.length} pertanyaan sebelum mengirim! (${questions.length - _selectedAnswers.length} tersisa)',
+                    'Harap isi semua ${questions.length} pertanyaan sebelum mengirim! (${questions.length - selectedAnswers.length} tersisa)',
                     style: const TextStyle(
                       fontFamily: 'DMSans',
                       fontSize: 11,
@@ -452,15 +475,15 @@ class _QuizScreenState extends State<QuizScreen> {
 
               Row(
                 children: List.generate(questions.length, (index) {
-                  final bool isCurrent = index == _currentIndex;
-                  final bool isAnswered = _selectedAnswers[index] != null;
+                  final bool isCurrent = index == currentIndex;
+                  final bool isAnswered = selectedAnswers[index] != null;
 
                   return Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        setState(() {
-                          _currentIndex = index;
-                        });
+                        context
+                            .read<QuizProvider>()
+                            .setCurrentIndex(index);
                       },
                       child: Container(
                         height: 38,
