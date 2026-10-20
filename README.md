@@ -42,7 +42,7 @@ dibuat bertujuan untuk memenuhi nilai UTS Lab Pemrograman Mobile 3
 <img width="180" alt="Quiz List Light Mode" src="https://github.com/user-attachments/assets/348608f1-3a00-4af8-98eb-c31793959ba6" />
 <img width="180" alt="Quiz List Dark Mode" src="https://github.com/user-attachments/assets/d5b32c43-3cd4-4a25-82e0-06fb14c579d2" />
 
-**History Screen (Empty State dan Jika Ada Data)**
+**History Screen (Empty State dan Jika Ada Data(Light & Dark Mode))**
 
 <img width="180" alt="History Empty State" src="https://github.com/user-attachments/assets/117cedb9-9196-4d04-b9d4-edf8ae84ccfe" />
 <img width="180" alt="History Light Mode" src="https://github.com/user-attachments/assets/8e4945bf-afa7-487d-a48b-14701abf6e18" />
