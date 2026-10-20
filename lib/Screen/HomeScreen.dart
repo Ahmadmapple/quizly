@@ -36,7 +36,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 26),
 
-              // Header pilihan kuis
               Row(
                 children: [
                   const Expanded(
@@ -95,7 +94,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
               const SizedBox(height: 18),
 
-              // Kategori kuis 1
               QuizListCard(
                 icon: Icons.language,
                 iconColor: const Color(0xFF6E9F88),
@@ -104,20 +102,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 description:
                     'Jelajahi fakta menarik dari berbagai penjuru dunia.',
                 questionCount: 10,
-                onTap: () => context.go('/namescreen', extra: {
-                  'title': 'Seberapa luas wawasanmu?',
-                  'description':
-                      'Jelajahi fakta menarik dari berbagai penjuru dunia.',
-                  'icon': Icons.language,
-                  'iconColor': const Color(0xFF6E9F88),
-                  'iconBackgroundColor': const Color(0xFFE7F1EB),
-                  'questionCount': 10,
-                }),
+                onTap: () => context.go(
+                  '/namescreen',
+                  extra: {
+                    'title': 'Seberapa luas wawasanmu?',
+                    'description':
+                        'Jelajahi fakta menarik dari berbagai penjuru dunia.',
+                    'icon': Icons.language,
+                    'iconColor': const Color(0xFF6E9F88),
+                    'iconBackgroundColor': const Color(0xFFE7F1EB),
+                    'questionCount': 10,
+                  },
+                ),
               ),
 
               const SizedBox(height: 12),
 
-              // Kategori kuis 2
               QuizListCard(
                 icon: Icons.code,
                 iconColor: const Color(0xFF9C7BD0),
@@ -126,20 +126,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 description:
                     'Dari internet sampai coding. Seberapa tech-savvy kamu?',
                 questionCount: 10,
-                onTap: () => context.go('/namescreen', extra: {
-                  'title': 'Kenali dunia digital',
-                  'description':
-                      'Dari internet sampai coding. Seberapa tech-savvy kamu?',
-                  'icon': Icons.code,
-                  'iconColor': const Color(0xFF9C7BD0),
-                  'iconBackgroundColor': const Color(0xFFF0E8FA),
-                  'questionCount': 10,
-                }),
+                onTap: () => context.go(
+                  '/namescreen',
+                  extra: {
+                    'title': 'Kenali dunia digital',
+                    'description': 'Dari internet sampai coding. Seberapa tech-savvy kamu?',
+                    'icon': Icons.code,
+                    'iconColor': const Color(0xFF9C7BD0),
+                    'iconBackgroundColor': const Color(0xFFF0E8FA),
+                    'questionCount': 10,
+                  },
+                ),
               ),
 
               const SizedBox(height: 12),
 
-              // Kategori kuis 3
               QuizListCard(
                 icon: Icons.science_outlined,
                 iconColor: const Color(0xFFD5A071),
@@ -148,15 +149,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 description:
                     'Temukan keajaiban sains dalam kehidupan sehari-hari.',
                 questionCount: 10,
-                onTap: () => context.go('/namescreen', extra: {
-                  'title': 'Rahasia di balik sains',
-                  'description':
-                      'Temukan keajaiban sains dalam kehidupan sehari-hari.',
-                  'icon': Icons.science_outlined,
-                  'iconColor': const Color(0xFFD5A071),
-                  'iconBackgroundColor': const Color(0xFFFAF0E5),
-                  'questionCount': 10,
-                }),
+                onTap: () => context.go(
+                  '/namescreen',
+                  extra: {
+                    'title': 'Rahasia di balik sains',
+                    'description':
+                        'Temukan keajaiban sains dalam kehidupan sehari-hari.',
+                    'icon': Icons.science_outlined,
+                    'iconColor': const Color(0xFFD5A071),
+                    'iconBackgroundColor': const Color(0xFFFAF0E5),
+                    'questionCount': 10,
+                  },
+                ),
               ),
             ],
           ),

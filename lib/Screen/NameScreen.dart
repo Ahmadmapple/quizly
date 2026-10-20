@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import '../Provider/NameProvider.dart';
 
 class NameScreen extends StatefulWidget {
   final String title;
@@ -77,18 +80,13 @@ class _NameScreenState extends State<NameScreen> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.arrow_back,
-                        color: textColor,
-                        size: 22,
-                      ),
+                      Icon(Icons.arrow_back, color: textColor, size: 22),
                     ],
                   ),
                 ),
               ),
               const SizedBox(height: 16),
 
-              // Dynamic Icon Container from clicked QuizListCard
               Container(
                 width: 60,
                 height: 60,
@@ -96,15 +94,10 @@ class _NameScreenState extends State<NameScreen> {
                   color: widget.iconBackgroundColor,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: Icon(
-                  widget.icon,
-                  color: widget.iconColor,
-                  size: 30,
-                ),
+                child: Icon(widget.icon, color: widget.iconColor, size: 30),
               ),
               const SizedBox(height: 20),
 
-              // Tagline
               const Text(
                 'PETUALANGAN BARU MENANTI',
                 style: TextStyle(
@@ -129,7 +122,6 @@ class _NameScreenState extends State<NameScreen> {
               ),
               const SizedBox(height: 10),
 
-              // Selected Quiz Subtitle / Title
               Text(
                 widget.title,
                 style: const TextStyle(
@@ -141,7 +133,6 @@ class _NameScreenState extends State<NameScreen> {
               ),
               const SizedBox(height: 4),
 
-              // Question Count
               Text(
                 '${widget.questionCount} pertanyaan',
                 style: const TextStyle(
@@ -152,7 +143,6 @@ class _NameScreenState extends State<NameScreen> {
               ),
               const SizedBox(height: 28),
 
-              // Field Label
               const Text(
                 'Siapa nama kamu?',
                 style: TextStyle(
@@ -164,7 +154,6 @@ class _NameScreenState extends State<NameScreen> {
               ),
               const SizedBox(height: 8),
 
-              // TextField for Name Input
               Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFFF9F7FC),
@@ -200,7 +189,6 @@ class _NameScreenState extends State<NameScreen> {
               ),
               const SizedBox(height: 6),
 
-              // Help text under textfield
               const Text(
                 'Namamu akan ditampilkan pada hasil kuis.',
                 style: TextStyle(
@@ -212,22 +200,28 @@ class _NameScreenState extends State<NameScreen> {
 
               const Spacer(),
 
-              // Start Quiz Button ("Ayo, mulai kuis ->")
               SizedBox(
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton(
                   onPressed: _isInputValid
                       ? () {
-                          context.go('/quiz', extra: {
-                            'userName': _nameController.text.trim(),
-                            'title': widget.title,
-                            'description': widget.description,
-                            'icon': widget.icon,
-                            'iconColor': widget.iconColor,
-                            'iconBackgroundColor': widget.iconBackgroundColor,
-                            'questionCount': widget.questionCount,
-                          });
+                          final String enteredName = _nameController.text
+                              .trim();
+                          context.read<NameProvider>().setUserName(enteredName);
+
+                          context.go(
+                            '/quiz',
+                            extra: {
+                              'userName': enteredName,
+                              'title': widget.title,
+                              'description': widget.description,
+                              'icon': widget.icon,
+                              'iconColor': widget.iconColor,
+                              'iconBackgroundColor': widget.iconBackgroundColor,
+                              'questionCount': widget.questionCount,
+                            },
+                          );
                         }
                       : null,
                   style: ElevatedButton.styleFrom(
@@ -251,11 +245,7 @@ class _NameScreenState extends State<NameScreen> {
                         ),
                       ),
                       SizedBox(width: 8),
-                      Icon(
-                        Icons.arrow_forward,
-                        size: 18,
-                        color: Colors.white,
-                      ),
+                      Icon(Icons.arrow_forward, size: 18, color: Colors.white),
                     ],
                   ),
                 ),

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import '../Provider/HistoryProvider.dart';
+import '../Provider/NameProvider.dart';
 import '../Widgets/TopBar.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -29,7 +33,6 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> {
   int _currentIndex = 0;
 
-  // Track user's chosen option index for each question (null if not answered yet)
   final Map<int, int> _selectedAnswers = {};
 
   static const Color textColor = Color(0xFF29243A);
@@ -38,7 +41,6 @@ class _QuizScreenState extends State<QuizScreen> {
   static const Color palePurple = Color(0xFFD8CBEC);
   static const Color borderColor = Color(0xFFEAE5EF);
 
-  // 10 Sample Quiz Questions
   final List<Map<String, dynamic>> _questions = [
     {
       'question': 'Apa nama ibu kota negara Jepang?',
@@ -57,7 +59,12 @@ class _QuizScreenState extends State<QuizScreen> {
     },
     {
       'question': 'Siapa penemu lampu pijar?',
-      'options': ['Nikola Tesla', 'Thomas Edison', 'Alexander Graham Bell', 'Albert Einstein'],
+      'options': [
+        'Nikola Tesla',
+        'Thomas Edison',
+        'Alexander Graham Bell',
+        'Albert Einstein',
+      ],
       'correctAnswer': 1,
     },
     {
@@ -92,6 +99,25 @@ class _QuizScreenState extends State<QuizScreen> {
     },
   ];
 
+  String _formatCurrentDate() {
+    final now = DateTime.now();
+    const months = [
+      'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli',
+      'Agustus',
+      'September',
+      'Oktober',
+      'November',
+      'Desember',
+    ];
+    return '${now.day} ${months[now.month - 1]} ${now.year}';
+  }
+
   void _finishQuiz() {
     int correctCount = 0;
     for (int i = 0; i < _questions.length; i++) {
@@ -102,31 +128,53 @@ class _QuizScreenState extends State<QuizScreen> {
 
     int score = (correctCount / _questions.length * 100).round();
 
-    context.go('/result', extra: {
-      'userName': widget.userName,
-      'score': score,
-      'maxScore': 100,
-      'correctCount': correctCount,
-      'totalQuestions': _questions.length,
-      'title': widget.title,
-      'icon': widget.icon,
-      'iconColor': widget.iconColor,
-      'iconBackgroundColor': widget.iconBackgroundColor,
-    });
+    final String savedName = context.read<NameProvider>().userName.isNotEmpty
+        ? context.read<NameProvider>().userName
+        : widget.userName;
+
+    context.read<HistoryProvider>().addHistory(
+      title: widget.title,
+      userName: savedName,
+      date: _formatCurrentDate(),
+      score: score,
+      maxScore: 100,
+      correctCount: correctCount,
+      totalQuestions: _questions.length,
+      icon: widget.icon,
+      iconColor: widget.iconColor,
+      iconBackgroundColor: widget.iconBackgroundColor,
+    );
+
+    context.go(
+      '/result',
+      extra: {
+        'userName': savedName,
+        'score': score,
+        'maxScore': 100,
+        'correctCount': correctCount,
+        'totalQuestions': _questions.length,
+        'title': widget.title,
+        'icon': widget.icon,
+        'iconColor': widget.iconColor,
+        'iconBackgroundColor': widget.iconBackgroundColor,
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final currentQuestion = _questions[_currentIndex];
     final int answeredCount = _selectedAnswers.length;
-    final int progressPercent = (answeredCount / _questions.length * 100).round();
+    final int progressPercent = (answeredCount / _questions.length * 100)
+        .round();
 
-    final bool isAnswerSelectedForCurrent = _selectedAnswers[_currentIndex] != null;
+    final bool isAnswerSelectedForCurrent =
+        _selectedAnswers[_currentIndex] != null;
     final bool hasPreviousQuestion = _currentIndex > 0;
     final bool isLastQuestion = _currentIndex == _questions.length - 1;
-    final bool areAllQuestionsAnswered = _selectedAnswers.length == _questions.length;
+    final bool areAllQuestionsAnswered =
+        _selectedAnswers.length == _questions.length;
 
-    // "Kirim" button on last question is enabled ONLY when ALL questions are answered
     final bool isNextOrSubmitEnabled = isLastQuestion
         ? areAllQuestionsAnswered
         : isAnswerSelectedForCurrent;
@@ -238,9 +286,13 @@ class _QuizScreenState extends State<QuizScreen> {
                     ...List.generate(
                       (currentQuestion['options'] as List).length,
                       (index) {
-                        final String optionText = currentQuestion['options'][index];
-                        final String optionLetter = String.fromCharCode(65 + index); // A, B, C, D
-                        final bool isSelected = _selectedAnswers[_currentIndex] == index;
+                        final String optionText =
+                            currentQuestion['options'][index];
+                        final String optionLetter = String.fromCharCode(
+                          65 + index,
+                        ); // A, B, C, D
+                        final bool isSelected =
+                            _selectedAnswers[_currentIndex] == index;
 
                         return Container(
                           margin: const EdgeInsets.only(bottom: 12),
@@ -490,15 +542,15 @@ class _QuizScreenState extends State<QuizScreen> {
                           color: isCurrent
                               ? const Color(0xFFF3EBFA)
                               : (isAnswered
-                                  ? const Color(0xFFF9F6FC)
-                                  : Colors.white),
+                                    ? const Color(0xFFF9F6FC)
+                                    : Colors.white),
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                             color: isCurrent
                                 ? primaryPurple
                                 : (isAnswered
-                                    ? const Color(0xFFC4A5EE)
-                                    : borderColor),
+                                      ? const Color(0xFFC4A5EE)
+                                      : borderColor),
                             width: isCurrent ? 1.5 : 1,
                           ),
                         ),
@@ -514,8 +566,8 @@ class _QuizScreenState extends State<QuizScreen> {
                               color: isCurrent
                                   ? primaryPurple
                                   : (isAnswered
-                                      ? const Color(0xFF5B358C)
-                                      : subtitleColor),
+                                        ? const Color(0xFF5B358C)
+                                        : subtitleColor),
                             ),
                           ),
                         ),

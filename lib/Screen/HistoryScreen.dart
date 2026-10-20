@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import '../Provider/HistoryProvider.dart';
 import '../Widgets/BottomBar.dart';
 import '../Widgets/TopBar.dart';
 
@@ -13,26 +16,15 @@ class HistoryScreen extends StatefulWidget {
 class _HistoryState extends State<HistoryScreen> {
   final int _currentIndex = 2;
 
-  // Jika list ini kosong [], maka tampilan akan berubah menjadi Empty State (Gambar 1).
-  final List<Map<String, dynamic>> _historyList = [
-    {
-      'title': 'Seberapa luas wawasanmu?',
-      'author': 'Caesar',
-      'date': '19 Oktober 2026',
-      'score': 40,
-      'maxScore': 100,
-      'icon': Icons.language,
-      'iconColor': const Color(0xFF437B62),
-      'iconBackgroundColor': const Color(0xFFE4F0E8),
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
     const textColor = Color(0xFF29243A);
     const subtitleColor = Color(0xFF8A8199);
     const labelColor = Color(0xFF9560C5);
     const purplePrimary = Color(0xFF8C62B5);
+
+    final historyProvider = context.watch<HistoryProvider>();
+    final historyList = historyProvider.historyList;
 
     return Scaffold(
       backgroundColor: const Color(0xFFFAFAFC),
@@ -42,7 +34,6 @@ class _HistoryState extends State<HistoryScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Top Label
             const Text(
               'SETIAP LANGKAH BERARTI',
               style: TextStyle(
@@ -55,7 +46,6 @@ class _HistoryState extends State<HistoryScreen> {
             ),
             const SizedBox(height: 6),
 
-            // Main Title
             const Text(
               'Perjalanan belajarmu.',
               style: TextStyle(
@@ -67,7 +57,6 @@ class _HistoryState extends State<HistoryScreen> {
             ),
             const SizedBox(height: 6),
 
-            // Subtitle
             const Text(
               'Semua kuis dan skor yang sudah kamu selesaikan.',
               style: TextStyle(
@@ -78,10 +67,14 @@ class _HistoryState extends State<HistoryScreen> {
             ),
             const SizedBox(height: 24),
 
-            // Kondisi jika riwayat kosong vs ada riwayat
-            _historyList.isEmpty
-                ? _buildEmptyState(context, purplePrimary, textColor, subtitleColor)
-                : _buildHistoryList(textColor, subtitleColor),
+            historyList.isEmpty
+                ? _buildEmptyState(
+                    context,
+                    purplePrimary,
+                    textColor,
+                    subtitleColor,
+                  )
+                : _buildHistoryList(historyList, textColor, subtitleColor),
           ],
         ),
       ),
@@ -101,13 +94,12 @@ class _HistoryState extends State<HistoryScreen> {
     );
   }
 
-  // WIDGET TAMPILAN JIKA BELUM ADA RIWAYAT (GAMBAR 1)
   Widget _buildEmptyState(
-      BuildContext context,
-      Color purpleColor,
-      Color textColor,
-      Color subtitleColor,
-      ) {
+    BuildContext context,
+    Color purpleColor,
+    Color textColor,
+    Color subtitleColor,
+  ) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 36),
@@ -119,7 +111,6 @@ class _HistoryState extends State<HistoryScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Circle Icon History
           Container(
             width: 64,
             height: 64,
@@ -161,7 +152,6 @@ class _HistoryState extends State<HistoryScreen> {
           ),
           const SizedBox(height: 24),
 
-          // Button "Temukan kuis"
           ElevatedButton(
             onPressed: () {
               context.go('/quizlist');
@@ -187,11 +177,7 @@ class _HistoryState extends State<HistoryScreen> {
                   ),
                 ),
                 SizedBox(width: 8),
-                Icon(
-                  Icons.arrow_forward,
-                  size: 16,
-                  color: Colors.white,
-                ),
+                Icon(Icons.arrow_forward, size: 16, color: Colors.white),
               ],
             ),
           ),
@@ -200,17 +186,20 @@ class _HistoryState extends State<HistoryScreen> {
     );
   }
 
-  // WIDGET TAMPILAN DAFTAR RIWAYAT KUIS (GAMBAR 2)
-  Widget _buildHistoryList(Color textColor, Color subtitleColor) {
+  Widget _buildHistoryList(
+    List<HistoryItem> historyList,
+    Color textColor,
+    Color subtitleColor,
+  ) {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: _historyList.length,
+      itemCount: historyList.length,
       separatorBuilder: (context, index) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
-        final item = _historyList[index];
+        final item = historyList[index];
         return Container(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
@@ -218,41 +207,45 @@ class _HistoryState extends State<HistoryScreen> {
           ),
           child: Row(
             children: [
-              // Icon Kuis
               Container(
-                width: 48,
-                height: 48,
+                width: 52,
+                height: 52,
                 decoration: BoxDecoration(
-                  color: item['iconBackgroundColor'],
-                  borderRadius: BorderRadius.circular(12),
+                  color: item.iconBackgroundColor,
+                  borderRadius: BorderRadius.circular(14),
                 ),
-                child: Icon(
-                  item['icon'],
-                  color: item['iconColor'],
-                  size: 24,
-                ),
+                child: Icon(item.icon, color: item.iconColor, size: 26),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 14),
 
-              // Title & Date Info
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      item['title'],
+                      item.title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontFamily: 'Manrope',
-                        fontSize: 12,
+                        fontSize: 13,
                         fontWeight: FontWeight.bold,
                         color: textColor,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 3),
                     Text(
-                      '${item['author']} · ${item['date']}',
+                      'Nama: ${item.userName}',
+                      style: TextStyle(
+                        fontFamily: 'DMSans',
+                        fontSize: 11,
+                        fontWeight: FontWeight.w500,
+                        color: textColor.withValues(alpha: 0.8),
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      '${item.date} · ${item.correctCount}/${item.totalQuestions} benar',
                       style: TextStyle(
                         fontFamily: 'DMSans',
                         fontSize: 10,
@@ -263,23 +256,22 @@ class _HistoryState extends State<HistoryScreen> {
                 ),
               ),
 
-              const SizedBox(width: 8),
+              const SizedBox(width: 12),
 
-              // Score Display
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    '${item['score']}',
+                    '${item.score}',
                     style: const TextStyle(
-                      fontFamily: 'DMSans',
-                      fontSize: 20,
+                      fontFamily: 'Manrope',
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF8C62B5),
                     ),
                   ),
                   Text(
-                    '/${item['maxScore']}',
+                    '/${item.maxScore} poin',
                     style: TextStyle(
                       fontFamily: 'DMSans',
                       fontSize: 9,
@@ -287,14 +279,6 @@ class _HistoryState extends State<HistoryScreen> {
                     ),
                   ),
                 ],
-              ),
-              const SizedBox(width: 8),
-
-              // Arrow Icon
-              Icon(
-                Icons.chevron_right,
-                size: 18,
-                color: subtitleColor,
               ),
             ],
           ),

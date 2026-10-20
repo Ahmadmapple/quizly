@@ -12,14 +12,8 @@ import '../Screen/SplashScreen.dart';
 final GoRouter router = GoRouter(
   initialLocation: '/',
   routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const SplashScreen(),
-    ),
-    GoRoute(
-      path: '/home',
-      builder: (context, state) => const HomeScreen(),
-    ),
+    GoRoute(path: '/', builder: (context, state) => const SplashScreen()),
+    GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
     GoRoute(
       path: '/quizlist',
       builder: (context, state) => const QuizListScreen(),
@@ -35,14 +29,16 @@ final GoRouter router = GoRouter(
         if (extra != null) {
           return NameScreen(
             title: extra['title']?.toString() ?? 'Seberapa luas wawasanmu?',
-            description: extra['description']?.toString() ??
+            description:
+                extra['description']?.toString() ??
                 'Jelajahi fakta menarik dari berbagai penjuru dunia.',
             icon: extra['icon'] as IconData? ?? Icons.language,
-            iconColor:
-                extra['iconColor'] as Color? ?? const Color(0xFF437B62),
-            iconBackgroundColor: extra['iconBackgroundColor'] as Color? ??
+            iconColor: extra['iconColor'] as Color? ?? const Color(0xFF437B62),
+            iconBackgroundColor:
+                extra['iconBackgroundColor'] as Color? ??
                 const Color(0xFFE4F0E8),
-            questionCount: int.tryParse(extra['questionCount']?.toString() ?? '') ?? 10,
+            questionCount:
+                int.tryParse(extra['questionCount']?.toString() ?? '') ?? 10,
           );
         }
         return const NameScreen();
@@ -58,8 +54,11 @@ final GoRouter router = GoRouter(
           description: extra?['description']?.toString() ?? '',
           icon: extra?['icon'] as IconData? ?? Icons.language,
           iconColor: extra?['iconColor'] as Color? ?? const Color(0xFF437B62),
-          iconBackgroundColor: extra?['iconBackgroundColor'] as Color? ?? const Color(0xFFE4F0E8),
-          questionCount: int.tryParse(extra?['questionCount']?.toString() ?? '') ?? 10,
+          iconBackgroundColor:
+              extra?['iconBackgroundColor'] as Color? ??
+              const Color(0xFFE4F0E8),
+          questionCount:
+              int.tryParse(extra?['questionCount']?.toString() ?? '') ?? 10,
         );
       },
     ),
@@ -71,8 +70,10 @@ final GoRouter router = GoRouter(
           userName: extra?['userName']?.toString() ?? 'Pengguna',
           score: int.tryParse(extra?['score']?.toString() ?? '') ?? 0,
           maxScore: int.tryParse(extra?['maxScore']?.toString() ?? '') ?? 100,
-          correctCount: int.tryParse(extra?['correctCount']?.toString() ?? '') ?? 0,
-          totalQuestions: int.tryParse(extra?['totalQuestions']?.toString() ?? '') ?? 10,
+          correctCount:
+              int.tryParse(extra?['correctCount']?.toString() ?? '') ?? 0,
+          totalQuestions:
+              int.tryParse(extra?['totalQuestions']?.toString() ?? '') ?? 10,
           title: extra?['title']?.toString() ?? 'Seberapa luas wawasanmu?',
         );
       },

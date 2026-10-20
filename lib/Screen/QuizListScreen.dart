@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../Widgets/BottomBar.dart';
 import '../Widgets/TopBar.dart';
 import '../Widgets/QuizListCard.dart';
@@ -14,10 +15,8 @@ class QuizListScreen extends StatefulWidget {
 class _QuizListScreenState extends State<QuizListScreen> {
   final int _currentIndex = 1;
 
-  // Controller for the search field
   final TextEditingController _searchController = TextEditingController();
 
-  // Sample data corresponding to the cards in the design
   final List<Map<String, dynamic>> _quizzes = [
     {
       'title': 'Seberapa luas wawasanmu?',
@@ -58,14 +57,13 @@ class _QuizListScreenState extends State<QuizListScreen> {
     const labelColor = Color(0xFF9560C5);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFAFAFC), // Clean, light background as seen in design
+      backgroundColor: const Color(0xFFFAFAFC),
       appBar: const TopBar(title: "quizly"),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Top Subtitle / Tagline
             const Text(
               'TEMUKAN PENGETAHUAN BARU',
               style: TextStyle(
@@ -78,7 +76,6 @@ class _QuizListScreenState extends State<QuizListScreen> {
             ),
             const SizedBox(height: 6),
 
-            // Main Screen Title
             const Text(
               'Semua kuis.',
               style: TextStyle(
@@ -90,7 +87,6 @@ class _QuizListScreenState extends State<QuizListScreen> {
             ),
             const SizedBox(height: 6),
 
-            // Description Header
             const Text(
               'Pilih kuis yang menarik dan uji wawasanmu.',
               style: TextStyle(
@@ -101,7 +97,6 @@ class _QuizListScreenState extends State<QuizListScreen> {
             ),
             const SizedBox(height: 20),
 
-            // Search Bar
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -132,7 +127,6 @@ class _QuizListScreenState extends State<QuizListScreen> {
             ),
             const SizedBox(height: 16),
 
-            // Summary text info
             const Text(
               '3 kuis tersedia',
               style: TextStyle(
@@ -144,7 +138,6 @@ class _QuizListScreenState extends State<QuizListScreen> {
             ),
             const SizedBox(height: 16),
 
-            // Quiz Cards List
             ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
