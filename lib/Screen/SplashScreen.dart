@@ -24,17 +24,20 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color(0xFFEEE5F8),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 100),
+          padding: EdgeInsets.only(bottom: screenHeight * 0.1),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
                 'lib/Assets/Ikon Q Ungu Berlapis Modern.png',
-                width: 200,
+                width: screenWidth * 0.5,
                 fit: BoxFit.contain,
               ),
               const Text(

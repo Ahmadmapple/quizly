@@ -111,8 +111,8 @@ class ResultScreen extends StatelessWidget {
                   const SizedBox(height: 22),
 
                   Container(
-                    width: 140,
-                    height: 140,
+                    width: MediaQuery.of(context).size.width * 0.38,
+                    height: MediaQuery.of(context).size.width * 0.38,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: cardColor,
