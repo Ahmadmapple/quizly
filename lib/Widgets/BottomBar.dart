@@ -12,13 +12,15 @@ class BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: isDark ? const Color(0xFF211D30) : Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: Colors.black.withValues(alpha: isDark ? 0.3 : 0.05),
             blurRadius: 10,
             offset: const Offset(0, -5),
           ),
@@ -30,6 +32,7 @@ class BottomBar extends StatelessWidget {
           children: [
             Expanded(
               child: _buildNavItem(
+                context: context,
                 index: 0,
                 icon: Icons.home_outlined,
                 selectedIcon: Icons.home_rounded,
@@ -38,6 +41,7 @@ class BottomBar extends StatelessWidget {
             ),
             Expanded(
               child: _buildNavItem(
+                context: context,
                 index: 1,
                 icon: Icons.grid_view_outlined,
                 selectedIcon: Icons.grid_view_rounded,
@@ -46,6 +50,7 @@ class BottomBar extends StatelessWidget {
             ),
             Expanded(
               child: _buildNavItem(
+                context: context,
                 index: 2,
                 icon: Icons.history_outlined,
                 selectedIcon: Icons.history_rounded,
@@ -59,15 +64,19 @@ class BottomBar extends StatelessWidget {
   }
 
   Widget _buildNavItem({
+    required BuildContext context,
     required int index,
     required IconData icon,
     required IconData selectedIcon,
     required String label,
   }) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     bool isSelected = currentIndex == index;
 
-    Color activeColor = const Color(0xFF5B358C);
-    Color pillBackgroundColor = const Color(0xFFEEE5F8);
+    Color activeColor =
+        isDark ? const Color(0xFFC29EF2) : const Color(0xFF5B358C);
+    Color pillBackgroundColor =
+        isDark ? const Color(0xFF352B49) : const Color(0xFFEEE5F8);
 
     return GestureDetector(
       onTap: () => onTap(index),

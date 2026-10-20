@@ -17,13 +17,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final int _currentIndex = 0;
 
-  static const Color primaryPurple = Color(0xFF9363C5);
-  static const Color backgroundColor = Color(0xFFFAF9FC);
-  static const Color textColor = Color(0xFF29243A);
-  static const Color mutedColor = Color(0xFF9387A5);
-
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final primaryPurple =
+        isDark ? const Color(0xFFC099EA) : const Color(0xFF9363C5);
+    final backgroundColor =
+        isDark ? const Color(0xFF161320) : const Color(0xFFFAF9FC);
+    final textColor =
+        isDark ? const Color(0xFFF4F0FB) : const Color(0xFF29243A);
+    final mutedColor =
+        isDark ? const Color(0xFFAFA5C2) : const Color(0xFF9387A5);
+
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: const TopBar(title: 'quizly'),
@@ -39,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -52,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: textColor,
                           ),
                         ),
-                        SizedBox(height: 5),
+                        const SizedBox(height: 5),
                         Text(
                           '10 pertanyaan, satu pengetahuan baru.',
                           style: TextStyle(
@@ -67,8 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   InkWell(
                     onTap: () => context.go('/quizlist'),
                     borderRadius: BorderRadius.circular(8),
-                    child: const Padding(
-                      padding: EdgeInsets.all(6),
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
                       child: Row(
                         children: [
                           Text(
@@ -80,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          SizedBox(width: 5),
+                          const SizedBox(width: 5),
                           Icon(
                             Icons.arrow_forward,
                             size: 15,

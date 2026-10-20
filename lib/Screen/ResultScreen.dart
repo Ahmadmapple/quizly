@@ -21,13 +21,24 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const textColor = Color(0xFF29243A);
-    const subtitleColor = Color(0xFF8A8199);
-    const primaryPurple = Color(0xFF8C62B5);
-    const labelColor = Color(0xFF9560C5);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final backgroundColor =
+        isDark ? const Color(0xFF161320) : const Color(0xFFFAFAFC);
+    final cardColor = isDark ? const Color(0xFF231F33) : Colors.white;
+    final borderColor =
+        isDark ? const Color(0xFF38314A) : const Color(0xFFEAE5EF);
+    final textColor =
+        isDark ? const Color(0xFFF4F0FB) : const Color(0xFF29243A);
+    final subtitleColor =
+        isDark ? const Color(0xFFAFA5C2) : const Color(0xFF8A8199);
+    final primaryPurple =
+        isDark ? const Color(0xFFC099EA) : const Color(0xFF8C62B5);
+    final labelColor =
+        isDark ? const Color(0xFFC099EA) : const Color(0xFF9560C5);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFAFAFC),
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -39,31 +50,31 @@ class ResultScreen extends StatelessWidget {
                 vertical: 24,
               ),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: cardColor,
                 borderRadius: BorderRadius.circular(28),
-                border: Border.all(color: const Color(0xFFEAE5EF)),
+                border: Border.all(color: borderColor),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Trophy Icon
                   Container(
                     width: 68,
                     height: 68,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFBF2E0),
+                      color: isDark
+                          ? const Color(0xFF382F22)
+                          : const Color(0xFFFBF2E0),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Icon(
                       Icons.emoji_events_outlined,
-                      color: Color(0xFFC09440),
+                      color: Color(0xFFE5B252),
                       size: 36,
                     ),
                   ),
                   const SizedBox(height: 18),
 
-                  // Tagline Label
-                  const Text(
+                  Text(
                     'SATU LANGKAH LEBIH TAHU',
                     style: TextStyle(
                       fontFamily: 'DMSans',
@@ -75,11 +86,10 @@ class ResultScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
 
-                  // Encouragement Title
                   Text(
                     'Terus semangat, $userName!',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Manrope',
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -88,8 +98,7 @@ class ResultScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
 
-                  // Encouragement Subtitle
-                  const Text(
+                  Text(
                     'Setiap percobaan adalah kesempatan untuk belajar hal baru.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -99,22 +108,23 @@ class ResultScreen extends StatelessWidget {
                       color: subtitleColor,
                     ),
                   ),
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 22),
 
-                  // Circular Score Badge
                   Container(
                     width: 140,
                     height: 140,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.white,
+                      color: cardColor,
                       border: Border.all(
-                        color: const Color(0xFFC4A5EE),
+                        color: isDark
+                            ? const Color(0xFF8B64BA)
+                            : const Color(0xFFC4A5EE),
                         width: 2.5,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: primaryPurple.withValues(alpha: 0.08),
+                          color: primaryPurple.withValues(alpha: 0.15),
                           blurRadius: 16,
                           spreadRadius: 2,
                         ),
@@ -125,14 +135,14 @@ class ResultScreen extends StatelessWidget {
                       children: [
                         Text(
                           '$score',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Manrope',
                             fontSize: 44,
                             fontWeight: FontWeight.bold,
                             color: primaryPurple,
                           ),
                         ),
-                        const Text(
+                        Text(
                           'dari 100 poin',
                           style: TextStyle(
                             fontFamily: 'DMSans',
@@ -145,11 +155,10 @@ class ResultScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 18),
 
-                  // Quiz Title
                   Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Manrope',
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -158,11 +167,10 @@ class ResultScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
 
-                  // Stats Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.check,
                         size: 14,
                         color: subtitleColor,
@@ -170,14 +178,14 @@ class ResultScreen extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         '$correctCount jawaban benar',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'DMSans',
                           fontSize: 11,
                           color: subtitleColor,
                         ),
                       ),
                       const SizedBox(width: 16),
-                      const Icon(
+                      Icon(
                         Icons.menu_book_outlined,
                         size: 14,
                         color: subtitleColor,
@@ -185,7 +193,7 @@ class ResultScreen extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         '$totalQuestions pertanyaan',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'DMSans',
                           fontSize: 11,
                           color: subtitleColor,
@@ -193,12 +201,10 @@ class ResultScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 24),
 
-                  // Buttons Row: [Kembali ke beranda] & [Coba lagi ->]
                   Row(
                     children: [
-                      // Button 1: Kembali ke beranda
                       Expanded(
                         child: SizedBox(
                           height: 46,
@@ -207,16 +213,18 @@ class ResultScreen extends StatelessWidget {
                               context.go('/home');
                             },
                             style: OutlinedButton.styleFrom(
-                              side: const BorderSide(
-                                color: Color(0xFFD8C5F0),
+                              side: BorderSide(
+                                color: isDark
+                                    ? const Color(0xFF4C3F66)
+                                    : const Color(0xFFD8C5F0),
                                 width: 1.5,
                               ),
-                              backgroundColor: Colors.white,
+                              backgroundColor: cardColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            child: const Text(
+                            child: Text(
                               'Kembali ke beranda',
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -231,7 +239,6 @@ class ResultScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
 
-                      // Button 2: Coba lagi ->
                       Expanded(
                         child: SizedBox(
                           height: 46,

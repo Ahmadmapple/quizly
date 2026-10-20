@@ -56,14 +56,30 @@ class _NameScreenState extends State<NameScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const textColor = Color(0xFF29243A);
-    const subtitleColor = Color(0xFF8A8199);
-    const labelColor = Color(0xFF9560C5);
-    const primaryPurple = Color(0xFF9363C5);
-    const palePurple = Color(0xFFD8CBEC);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final backgroundColor =
+        isDark ? const Color(0xFF161320) : const Color(0xFFFAFAFC);
+    final textColor =
+        isDark ? const Color(0xFFF4F0FB) : const Color(0xFF29243A);
+    final subtitleColor =
+        isDark ? const Color(0xFFAFA5C2) : const Color(0xFF8A8199);
+    final labelColor =
+        isDark ? const Color(0xFFC099EA) : const Color(0xFF9560C5);
+    final primaryPurple =
+        isDark ? const Color(0xFFC099EA) : const Color(0xFF9363C5);
+    final palePurple =
+        isDark ? const Color(0xFF3C3352) : const Color(0xFFD8CBEC);
+    final inputBg =
+        isDark ? const Color(0xFF231F33) : const Color(0xFFF9F7FC);
+
+    final effectiveIconBg = isDark
+        ? Color.alphaBlend(
+            widget.iconColor.withValues(alpha: 0.25), const Color(0xFF2E2742))
+        : widget.iconBackgroundColor;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFAFAFC),
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -79,8 +95,9 @@ class _NameScreenState extends State<NameScreen> {
                   }
                 },
                 borderRadius: BorderRadius.circular(8),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -95,14 +112,14 @@ class _NameScreenState extends State<NameScreen> {
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: widget.iconBackgroundColor,
+                  color: effectiveIconBg,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Icon(widget.icon, color: widget.iconColor, size: 30),
               ),
               const SizedBox(height: 20),
 
-              const Text(
+              Text(
                 'PETUALANGAN BARU MENANTI',
                 style: TextStyle(
                   fontFamily: 'DMSans',
@@ -114,7 +131,7 @@ class _NameScreenState extends State<NameScreen> {
               ),
               const SizedBox(height: 6),
 
-              const Text(
+              Text(
                 'Siap menguji wawasan?',
                 style: TextStyle(
                   fontFamily: 'Manrope',
@@ -127,7 +144,7 @@ class _NameScreenState extends State<NameScreen> {
 
               Text(
                 widget.title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'DMSans',
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
@@ -138,7 +155,7 @@ class _NameScreenState extends State<NameScreen> {
 
               Text(
                 '${widget.questionCount} pertanyaan',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'DMSans',
                   fontSize: 12,
                   color: subtitleColor,
@@ -146,7 +163,7 @@ class _NameScreenState extends State<NameScreen> {
               ),
               const SizedBox(height: 28),
 
-              const Text(
+              Text(
                 'Siapa nama kamu?',
                 style: TextStyle(
                   fontFamily: 'Manrope',
@@ -159,31 +176,33 @@ class _NameScreenState extends State<NameScreen> {
 
               Container(
                 decoration: BoxDecoration(
-                  color: const Color(0xFFF9F7FC),
+                  color: inputBg,
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
                     color: _isInputValid
                         ? primaryPurple
-                        : const Color(0xFFC4A5EE),
+                        : (isDark
+                            ? const Color(0xFF483D63)
+                            : const Color(0xFFC4A5EE)),
                     width: 1.5,
                   ),
                 ),
                 child: TextField(
                   controller: _nameController,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'DMSans',
                     fontSize: 14,
                     color: textColor,
                   ),
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Masukkan namamu',
                     hintStyle: TextStyle(
                       fontFamily: 'DMSans',
                       fontSize: 14,
-                      color: Color(0xFFA099AE),
+                      color: subtitleColor,
                     ),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(
+                    contentPadding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 14,
                     ),
@@ -192,7 +211,7 @@ class _NameScreenState extends State<NameScreen> {
               ),
               const SizedBox(height: 6),
 
-              const Text(
+              Text(
                 'Namamu akan ditampilkan pada hasil kuis.',
                 style: TextStyle(
                   fontFamily: 'DMSans',
@@ -210,7 +229,9 @@ class _NameScreenState extends State<NameScreen> {
                       ? () {
                           final String enteredName =
                               _nameController.text.trim();
-                          context.read<NameProvider>().setUserName(enteredName);
+                          context
+                              .read<NameProvider>()
+                              .setUserName(enteredName);
 
                           context.go(
                             '/quiz',
@@ -220,7 +241,8 @@ class _NameScreenState extends State<NameScreen> {
                               'description': widget.description,
                               'icon': widget.icon,
                               'iconColor': widget.iconColor,
-                              'iconBackgroundColor': widget.iconBackgroundColor,
+                              'iconBackgroundColor':
+                                  widget.iconBackgroundColor,
                               'questionCount': widget.questionCount,
                             },
                           );
@@ -234,7 +256,7 @@ class _NameScreenState extends State<NameScreen> {
                       borderRadius: BorderRadius.circular(14),
                     ),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -243,11 +265,23 @@ class _NameScreenState extends State<NameScreen> {
                           fontFamily: 'DMSans',
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                          color: _isInputValid
+                              ? Colors.white
+                              : (isDark
+                                  ? const Color(0xFF8B81A6)
+                                  : Colors.white),
                         ),
                       ),
-                      SizedBox(width: 8),
-                      Icon(Icons.arrow_forward, size: 18, color: Colors.white),
+                      const SizedBox(width: 8),
+                      Icon(
+                        Icons.arrow_forward,
+                        size: 18,
+                        color: _isInputValid
+                            ? Colors.white
+                            : (isDark
+                                ? const Color(0xFF8B81A6)
+                                : Colors.white),
+                      ),
                     ],
                   ),
                 ),

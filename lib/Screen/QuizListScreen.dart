@@ -25,9 +25,19 @@ class _QuizListScreenState extends State<QuizListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const textColor = Color(0xFF29243A);
-    const subtitleColor = Color(0xFF8A8199);
-    const labelColor = Color(0xFF9560C5);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final backgroundColor =
+        isDark ? const Color(0xFF161320) : const Color(0xFFFAFAFC);
+    final cardColor = isDark ? const Color(0xFF231F33) : Colors.white;
+    final borderColor =
+        isDark ? const Color(0xFF38314A) : const Color(0xFFEAE5EF);
+    final textColor =
+        isDark ? const Color(0xFFF4F0FB) : const Color(0xFF29243A);
+    final subtitleColor =
+        isDark ? const Color(0xFFAFA5C2) : const Color(0xFF8A8199);
+    final labelColor =
+        isDark ? const Color(0xFFC099EA) : const Color(0xFF9560C5);
 
     final String query = _searchController.text.trim().toLowerCase();
     final filteredQuizzes = dummyQuizzes.where((quiz) {
@@ -37,14 +47,14 @@ class _QuizListScreenState extends State<QuizListScreen> {
     }).toList();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFAFAFC),
+      backgroundColor: backgroundColor,
       appBar: const TopBar(title: "quizly"),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'TEMUKAN PENGETAHUAN BARU',
               style: TextStyle(
                 fontFamily: 'DMSans',
@@ -56,7 +66,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
             ),
             const SizedBox(height: 6),
 
-            const Text(
+            Text(
               'Semua kuis.',
               style: TextStyle(
                 fontFamily: 'Manrope',
@@ -67,7 +77,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
             ),
             const SizedBox(height: 6),
 
-            const Text(
+            Text(
               'Pilih kuis yang menarik dan uji wawasanmu.',
               style: TextStyle(
                 fontFamily: 'DMSans',
@@ -79,29 +89,34 @@ class _QuizListScreenState extends State<QuizListScreen> {
 
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: cardColor,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFFEAE5EF)),
+                border: Border.all(color: borderColor),
               ),
               child: TextField(
                 controller: _searchController,
+                style: TextStyle(
+                  fontFamily: 'DMSans',
+                  fontSize: 13,
+                  color: textColor,
+                ),
                 onChanged: (_) {
                   setState(() {});
                 },
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Cari kuis...',
                   hintStyle: TextStyle(
                     fontFamily: 'DMSans',
                     fontSize: 13,
-                    color: Color(0xFFA099AE),
+                    color: subtitleColor,
                   ),
                   prefixIcon: Icon(
                     Icons.search,
-                    color: Color(0xFFA099AE),
+                    color: subtitleColor,
                     size: 20,
                   ),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.symmetric(
+                  contentPadding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 12,
                   ),
@@ -112,7 +127,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
 
             Text(
               '${filteredQuizzes.length} kuis tersedia',
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'DMSans',
                 fontSize: 11,
                 fontWeight: FontWeight.w500,

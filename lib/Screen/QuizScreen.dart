@@ -21,12 +21,6 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> {
-  static const Color textColor = Color(0xFF29243A);
-  static const Color subtitleColor = Color(0xFF8A8199);
-  static const Color primaryPurple = Color(0xFF9363C5);
-  static const Color palePurple = Color(0xFFD8CBEC);
-  static const Color borderColor = Color(0xFFEAE5EF);
-
   @override
   void initState() {
     super.initState();
@@ -78,8 +72,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
     int score = (correctCount / questions.length * 100).round();
 
-    final String savedName =
-        userName.isNotEmpty ? userName : 'Pengguna';
+    final String savedName = userName.isNotEmpty ? userName : 'Pengguna';
 
     context.read<HistoryProvider>().addHistory(
           title: quiz.title,
@@ -114,6 +107,22 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final backgroundColor =
+        isDark ? const Color(0xFF161320) : const Color(0xFFFAFAFC);
+    final cardColor = isDark ? const Color(0xFF231F33) : Colors.white;
+    final borderColor =
+        isDark ? const Color(0xFF38314A) : const Color(0xFFEAE5EF);
+    final textColor =
+        isDark ? const Color(0xFFF4F0FB) : const Color(0xFF29243A);
+    final subtitleColor =
+        isDark ? const Color(0xFFAFA5C2) : const Color(0xFF8A8199);
+    final primaryPurple =
+        isDark ? const Color(0xFFC099EA) : const Color(0xFF9363C5);
+    final palePurple =
+        isDark ? const Color(0xFF3C3352) : const Color(0xFFD8CBEC);
+
     final quizProvider = context.watch<QuizProvider>();
     final nameProvider = context.watch<NameProvider>();
 
@@ -140,7 +149,7 @@ class _QuizScreenState extends State<QuizScreen> {
         : isAnswerSelectedForCurrent;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFAFAFC),
+      backgroundColor: backgroundColor,
       appBar: const TopBar(title: 'quizly'),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -153,7 +162,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 children: [
                   RichText(
                     text: TextSpan(
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'DMSans',
                         fontSize: 12,
                         color: subtitleColor,
@@ -162,7 +171,7 @@ class _QuizScreenState extends State<QuizScreen> {
                         const TextSpan(text: 'Pertanyaan '),
                         TextSpan(
                           text: '${currentIndex + 1}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: textColor,
                           ),
@@ -173,7 +182,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                   Text(
                     '$progressPercent% selesai',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'DMSans',
                       fontSize: 12,
                       color: subtitleColor,
@@ -187,7 +196,9 @@ class _QuizScreenState extends State<QuizScreen> {
                 height: 4,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFEAE5EF),
+                  color: isDark
+                      ? const Color(0xFF2E2742)
+                      : const Color(0xFFEAE5EF),
                   borderRadius: BorderRadius.circular(2),
                 ),
                 child: FractionallySizedBox(
@@ -207,14 +218,14 @@ class _QuizScreenState extends State<QuizScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: cardColor,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: borderColor),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'PILIH SATU JAWABAN YANG BENAR',
                       style: TextStyle(
                         fontFamily: 'DMSans',
@@ -228,7 +239,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
                     Text(
                       currentQuestion['question'],
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Manrope',
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -248,6 +259,22 @@ class _QuizScreenState extends State<QuizScreen> {
                         final bool isSelected =
                             selectedAnswers[currentIndex] == index;
 
+                        final optionBg = isSelected
+                            ? (isDark
+                                ? const Color(0xFF35284B)
+                                : const Color(0xFFF6F0FC))
+                            : (isDark
+                                ? const Color(0xFF29243C)
+                                : Colors.white);
+
+                        final badgeBg = isSelected
+                            ? (isDark
+                                ? const Color(0xFF473369)
+                                : const Color(0xFFEFE6FA))
+                            : (isDark
+                                ? const Color(0xFF221C33)
+                                : const Color(0xFFFAFAFC));
+
                         return Container(
                           margin: const EdgeInsets.only(bottom: 12),
                           child: InkWell(
@@ -263,9 +290,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                 vertical: 12,
                               ),
                               decoration: BoxDecoration(
-                                color: isSelected
-                                    ? const Color(0xFFF6F0FC)
-                                    : Colors.white,
+                                color: optionBg,
                                 borderRadius: BorderRadius.circular(14),
                                 border: Border.all(
                                   color: isSelected
@@ -280,9 +305,7 @@ class _QuizScreenState extends State<QuizScreen> {
                                     width: 32,
                                     height: 32,
                                     decoration: BoxDecoration(
-                                      color: isSelected
-                                          ? const Color(0xFFEFE6FA)
-                                          : const Color(0xFFFAFAFC),
+                                      color: badgeBg,
                                       borderRadius: BorderRadius.circular(8),
                                       border: Border.all(
                                         color: isSelected
@@ -331,7 +354,11 @@ class _QuizScreenState extends State<QuizScreen> {
                                             : borderColor,
                                         width: isSelected ? 6 : 1.5,
                                       ),
-                                      color: Colors.white,
+                                      color: isSelected
+                                          ? (isDark
+                                              ? const Color(0xFF161320)
+                                              : Colors.white)
+                                          : cardColor,
                                     ),
                                   ),
                                 ],
@@ -363,11 +390,15 @@ class _QuizScreenState extends State<QuizScreen> {
                           side: BorderSide(
                             color: hasPreviousQuestion
                                 ? borderColor
-                                : const Color(0xFFF2EEF6),
+                                : (isDark
+                                    ? const Color(0xFF2E2742)
+                                    : const Color(0xFFF2EEF6)),
                           ),
                           backgroundColor: hasPreviousQuestion
-                              ? Colors.white
-                              : const Color(0xFFFAF9FC),
+                              ? cardColor
+                              : (isDark
+                                  ? const Color(0xFF1C182B)
+                                  : const Color(0xFFFAF9FC)),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -433,11 +464,15 @@ class _QuizScreenState extends State<QuizScreen> {
                           children: [
                             Text(
                               isLastQuestion ? 'Kirim' : 'Selanjutnya',
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontFamily: 'DMSans',
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.white,
+                                color: isNextOrSubmitEnabled
+                                    ? Colors.white
+                                    : (isDark
+                                        ? const Color(0xFF8B81A6)
+                                        : Colors.white),
                               ),
                             ),
                             const SizedBox(width: 6),
@@ -446,7 +481,11 @@ class _QuizScreenState extends State<QuizScreen> {
                                   ? Icons.check
                                   : Icons.arrow_forward,
                               size: 16,
-                              color: Colors.white,
+                              color: isNextOrSubmitEnabled
+                                  ? Colors.white
+                                  : (isDark
+                                      ? const Color(0xFF8B81A6)
+                                      : Colors.white),
                             ),
                           ],
                         ),
@@ -465,7 +504,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       fontFamily: 'DMSans',
                       fontSize: 11,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFFD9534F),
+                      color: Color(0xFFE57373),
                     ),
                   ),
                 ),
@@ -478,6 +517,16 @@ class _QuizScreenState extends State<QuizScreen> {
                   final bool isCurrent = index == currentIndex;
                   final bool isAnswered = selectedAnswers[index] != null;
 
+                  final numBg = isCurrent
+                      ? (isDark
+                          ? const Color(0xFF382A52)
+                          : const Color(0xFFF3EBFA))
+                      : (isAnswered
+                          ? (isDark
+                              ? const Color(0xFF2C253D)
+                              : const Color(0xFFF9F6FC))
+                          : cardColor);
+
                   return Expanded(
                     child: GestureDetector(
                       onTap: () {
@@ -489,17 +538,15 @@ class _QuizScreenState extends State<QuizScreen> {
                         height: 38,
                         margin: const EdgeInsets.symmetric(horizontal: 2),
                         decoration: BoxDecoration(
-                          color: isCurrent
-                              ? const Color(0xFFF3EBFA)
-                              : (isAnswered
-                                  ? const Color(0xFFF9F6FC)
-                                  : Colors.white),
+                          color: numBg,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                             color: isCurrent
                                 ? primaryPurple
                                 : (isAnswered
-                                    ? const Color(0xFFC4A5EE)
+                                    ? (isDark
+                                        ? const Color(0xFF6B5196)
+                                        : const Color(0xFFC4A5EE))
                                     : borderColor),
                             width: isCurrent ? 1.5 : 1,
                           ),
@@ -516,7 +563,9 @@ class _QuizScreenState extends State<QuizScreen> {
                               color: isCurrent
                                   ? primaryPurple
                                   : (isAnswered
-                                      ? const Color(0xFF5B358C)
+                                      ? (isDark
+                                          ? const Color(0xFFD4B2FF)
+                                          : const Color(0xFF5B358C))
                                       : subtitleColor),
                             ),
                           ),

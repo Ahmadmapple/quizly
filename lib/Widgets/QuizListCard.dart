@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class QuizListCard extends StatelessWidget {
@@ -23,16 +22,26 @@ class QuizListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const purple = Color(0xFF9560C5);
-    const borderColor = Color(0xFFEAE5EF);
-    const textColor = Color(0xFF29243A);
-    const mutedColor = Color(0xFF8A8199);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final purple = isDark ? const Color(0xFFC099EA) : const Color(0xFF9560C5);
+    final borderColor =
+        isDark ? const Color(0xFF38314A) : const Color(0xFFEAE5EF);
+    final textColor = isDark ? const Color(0xFFF4F0FB) : const Color(0xFF29243A);
+    final mutedColor =
+        isDark ? const Color(0xFFAFA5C2) : const Color(0xFF8A8199);
+    final cardColor = isDark ? const Color(0xFF231F33) : Colors.white;
+
+    final effectiveIconBg = isDark
+        ? Color.alphaBlend(
+            iconColor.withValues(alpha: 0.25), const Color(0xFF2E2742))
+        : iconBackgroundColor;
 
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: cardColor,
         border: Border.all(color: borderColor),
         borderRadius: BorderRadius.circular(16),
       ),
@@ -45,7 +54,7 @@ class QuizListCard extends StatelessWidget {
                 width: 56,
                 height: 61,
                 decoration: BoxDecoration(
-                  color: iconBackgroundColor,
+                  color: effectiveIconBg,
                   borderRadius: BorderRadius.circular(13),
                 ),
                 child: Icon(
@@ -61,7 +70,7 @@ class QuizListCard extends StatelessWidget {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'Manrope',
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -71,7 +80,7 @@ class QuizListCard extends StatelessWidget {
                     const SizedBox(height: 5),
                     Text(
                       description,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'DMSans',
                         fontSize: 10,
                         height: 1.5,
@@ -81,7 +90,7 @@ class QuizListCard extends StatelessWidget {
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.menu_book_outlined,
                           size: 12,
                           color: mutedColor,
@@ -89,7 +98,7 @@ class QuizListCard extends StatelessWidget {
                         const SizedBox(width: 4),
                         Text(
                           '$questionCount pertanyaan',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'DMSans',
                             fontSize: 9,
                             color: mutedColor,
@@ -103,7 +112,7 @@ class QuizListCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          const Divider(
+          Divider(
             height: 1,
             thickness: 1,
             color: borderColor,
@@ -111,8 +120,8 @@ class QuizListCard extends StatelessWidget {
           InkWell(
             onTap: onTap,
             borderRadius: BorderRadius.circular(8),
-            child: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Row(
                 children: [
                   Expanded(

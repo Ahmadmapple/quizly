@@ -4,21 +4,32 @@ import 'AnswerLine.dart';
 class BuildBanner extends StatelessWidget {
   const BuildBanner({super.key});
 
-  static const Color primaryPurple = Color(0xFF9363C5);
-  static const Color textColor = Color(0xFF29243A);
-  static const Color mutedColor = Color(0xFF9387A5);
-
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final primaryPurple =
+        isDark ? const Color(0xFFC099EA) : const Color(0xFF9363C5);
+    final textColor =
+        isDark ? const Color(0xFFF4F0FB) : const Color(0xFF29243A);
+    final mutedColor =
+        isDark ? const Color(0xFFAFA5C2) : const Color(0xFF9387A5);
+    final bannerBg =
+        isDark ? const Color(0xFF28203B) : const Color(0xFFF0E7FA);
+    final bannerBorder =
+        isDark ? const Color(0xFF453663) : const Color(0xFFE8D9F6);
+    final tagBg =
+        isDark ? const Color(0xFF382E52) : const Color(0xFFF9F5FF);
+
     return Container(
       width: double.infinity,
       constraints: const BoxConstraints(minHeight: 184),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: const Color(0xFFF0E7FA),
+        color: bannerBg,
         borderRadius: BorderRadius.circular(19),
         border: Border.all(
-          color: const Color(0xFFE8D9F6),
+          color: bannerBorder,
         ),
       ),
       child: Stack(
@@ -35,10 +46,10 @@ class BuildBanner extends StatelessWidget {
                     vertical: 5,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF9F5FF),
+                    color: tagBg,
                     borderRadius: BorderRadius.circular(7),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
@@ -46,7 +57,7 @@ class BuildBanner extends StatelessWidget {
                         size: 11,
                         color: mutedColor,
                       ),
-                      SizedBox(width: 4),
+                      const SizedBox(width: 4),
                       Text(
                         'BELAJAR JADI LEBIH SERU',
                         style: TextStyle(
@@ -61,7 +72,7 @@ class BuildBanner extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 12),
-                const Text(
+                Text(
                   'Rasa ingin tahu.',
                   style: TextStyle(
                     fontFamily: 'Manrope',
@@ -72,7 +83,7 @@ class BuildBanner extends StatelessWidget {
                     color: textColor,
                   ),
                 ),
-                const Text(
+                Text(
                   'Jadi lebih tahu.',
                   style: TextStyle(
                     fontFamily: 'Manrope',
@@ -84,7 +95,7 @@ class BuildBanner extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Satu kuis singkat.',
                   style: TextStyle(
                     fontFamily: 'DMSans',
@@ -93,7 +104,7 @@ class BuildBanner extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
+                Text(
                   'Banyak hal baru untuk diketahui.',
                   style: TextStyle(
                     fontFamily: 'DMSans',
@@ -118,10 +129,14 @@ class BuildBanner extends StatelessWidget {
                   vertical: 5,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFCFAFF),
+                  color: isDark
+                      ? const Color(0xFF382F52)
+                      : const Color(0xFFFCFAFF),
                   borderRadius: BorderRadius.circular(9),
                   border: Border.all(
-                    color: const Color(0xFFD8C5F0),
+                    color: isDark
+                        ? const Color(0xFF6B5394)
+                        : const Color(0xFFD8C5F0),
                     width: 1.5,
                   ),
                 ),
@@ -131,7 +146,9 @@ class BuildBanner extends StatelessWidget {
                       height: 4,
                       width: 35,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFDCCAF4),
+                        color: isDark
+                            ? const Color(0xFF5D4782)
+                            : const Color(0xFFDCCAF4),
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),

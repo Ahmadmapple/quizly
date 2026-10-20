@@ -17,23 +17,31 @@ class _HistoryState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const textColor = Color(0xFF29243A);
-    const subtitleColor = Color(0xFF8A8199);
-    const labelColor = Color(0xFF9560C5);
-    const purplePrimary = Color(0xFF8C62B5);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final backgroundColor =
+        isDark ? const Color(0xFF161320) : const Color(0xFFFAFAFC);
+    final textColor =
+        isDark ? const Color(0xFFF4F0FB) : const Color(0xFF29243A);
+    final subtitleColor =
+        isDark ? const Color(0xFFAFA5C2) : const Color(0xFF8A8199);
+    final labelColor =
+        isDark ? const Color(0xFFC099EA) : const Color(0xFF9560C5);
+    final purplePrimary =
+        isDark ? const Color(0xFFB382EA) : const Color(0xFF8C62B5);
 
     final historyProvider = context.watch<HistoryProvider>();
     final historyList = historyProvider.historyList;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFAFAFC),
+      backgroundColor: backgroundColor,
       appBar: const TopBar(title: "quizly"),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'SETIAP LANGKAH BERARTI',
               style: TextStyle(
                 fontFamily: 'DMSans',
@@ -45,7 +53,7 @@ class _HistoryState extends State<HistoryScreen> {
             ),
             const SizedBox(height: 6),
 
-            const Text(
+            Text(
               'Perjalanan belajarmu.',
               style: TextStyle(
                 fontFamily: 'Manrope',
@@ -56,7 +64,7 @@ class _HistoryState extends State<HistoryScreen> {
             ),
             const SizedBox(height: 6),
 
-            const Text(
+            Text(
               'Semua kuis dan skor yang sudah kamu selesaikan.',
               style: TextStyle(
                 fontFamily: 'DMSans',
@@ -99,13 +107,18 @@ class _HistoryState extends State<HistoryScreen> {
     Color textColor,
     Color subtitleColor,
   ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final cardColor = isDark ? const Color(0xFF231F33) : Colors.white;
+    final borderColor =
+        isDark ? const Color(0xFF38314A) : const Color(0xFFEAE5EF);
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 36),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: cardColor,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFEAE5EF)),
+        border: Border.all(color: borderColor),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -114,12 +127,12 @@ class _HistoryState extends State<HistoryScreen> {
             width: 64,
             height: 64,
             decoration: BoxDecoration(
-              color: const Color(0xFFF2EBF9),
+              color: isDark ? const Color(0xFF2E2640) : const Color(0xFFF2EBF9),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.history_rounded,
-              color: Color(0xFF8C62B5),
+              color: purpleColor,
               size: 32,
             ),
           ),
@@ -188,6 +201,13 @@ class _HistoryState extends State<HistoryScreen> {
     Color textColor,
     Color subtitleColor,
   ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final cardColor = isDark ? const Color(0xFF231F33) : Colors.white;
+    final borderColor =
+        isDark ? const Color(0xFF38314A) : const Color(0xFFEAE5EF);
+    final scoreColor =
+        isDark ? const Color(0xFFC099EA) : const Color(0xFF8C62B5);
+
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -195,12 +215,20 @@ class _HistoryState extends State<HistoryScreen> {
       separatorBuilder: (context, index) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
         final item = historyList[index];
+
+        final effectiveIconBg = isDark
+            ? Color.alphaBlend(
+                item.iconColor.withValues(alpha: 0.25),
+                const Color(0xFF2E2742),
+              )
+            : item.iconBackgroundColor;
+
         return Container(
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: cardColor,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: const Color(0xFFEAE5EF)),
+            border: Border.all(color: borderColor),
           ),
           child: Row(
             children: [
@@ -208,7 +236,7 @@ class _HistoryState extends State<HistoryScreen> {
                 width: 52,
                 height: 52,
                 decoration: BoxDecoration(
-                  color: item.iconBackgroundColor,
+                  color: effectiveIconBg,
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Icon(item.icon, color: item.iconColor, size: 26),
@@ -260,11 +288,11 @@ class _HistoryState extends State<HistoryScreen> {
                 children: [
                   Text(
                     '${item.score}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Manrope',
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF8C62B5),
+                      color: scoreColor,
                     ),
                   ),
                   Text(
