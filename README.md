@@ -27,28 +27,42 @@ dibuat bertujuan untuk memenuhi nilai UTS Lab Pemrograman Mobile 3
 - `Ikon Q Ungu Berlapis Modern.png` bersumber dari gambar buatan AI
 
 ### ii. Screenshot tiap page Aplikasi
-- Splash Screen
-  <img width="180" alt="Screenshot_20261020_225320" src="https://github.com/user-attachments/assets/564ec989-f91b-4ff5-a800-c6f14051ef25" />
-- Home Screen (Light & Dark Mode)
-  <img width="180" alt="Screenshot_20261020_225341" src="https://github.com/user-attachments/assets/3ede406f-0703-4f1b-b13e-382bda5bcf33" />
-  <img width="180" alt="Screenshot_20261020_225921" src="https://github.com/user-attachments/assets/832d5c24-2259-4e14-a7de-9749f002acde" />
-- Quiz List Screen (Light & Dark Mode)
-  <img width="180" alt="Screenshot_20261020_225346" src="https://github.com/user-attachments/assets/348608f1-3a00-4af8-98eb-c31793959ba6" />
-  <img width="180" alt="Screenshot_20261020_225935" src="https://github.com/user-attachments/assets/d5b32c43-3cd4-4a25-82e0-06fb14c579d2" />
-- History Screen (Empty State dan Jika ada datanya (Light & Dark Mode))
-  <img width="180" alt="Screenshot_20261020_225354" src="https://github.com/user-attachments/assets/117cedb9-9196-4d04-b9d4-edf8ae84ccfe" />
-  <img width="180" alt="Screenshot_20261020_225914" src="https://github.com/user-attachments/assets/8e4945bf-afa7-487d-a48b-14701abf6e18" />
-  <img width="180" alt="Screenshot_20261020_225957" src="https://github.com/user-attachments/assets/6f5e6776-7190-4fe1-846b-aaa598a1efe2" />
-  <img width="180" alt="Screenshot_20261020_225940" src="https://github.com/user-attachments/assets/151f61ef-f44f-44c2-988d-e70ad7324e60" />
-- Name Screen (Light & Dark Mode)
-  <img width="180" alt="Screenshot_20261020_225508" src="https://github.com/user-attachments/assets/559f355a-6b1f-425c-acc6-692129c9bb12" />
-  <img width="180" alt="Screenshot_20261020_225928" src="https://github.com/user-attachments/assets/249eeb23-3870-4b87-af41-14152ba3be8f" />
-- Quiz Screen (Light & Dark Mode)
-  <img width="180" alt="Screenshot_20261020_225819" src="https://github.com/user-attachments/assets/4899dc46-cdd7-49c5-91bb-5353fc452e14" />
-  <img width="180" alt="Screenshot_20261020_225826" src="https://github.com/user-attachments/assets/6b846c08-3808-4e27-b532-7aa6c61b03f5" />
-- Result Screen (Light & Dark Mode)
-  <img width="180" alt="Screenshot_20261020_225902" src="https://github.com/user-attachments/assets/f8d26da4-8369-4810-ad4d-8c1dea31c4fa" />
-  <img width="180" alt="Screenshot_20261020_225845" src="https://github.com/user-attachments/assets/3aa8271b-7e51-4a7d-a2db-8d5bead9175c" />
+
+**Splash Screen**
+
+<img width="180" alt="Splash Screen" src="https://github.com/user-attachments/assets/564ec989-f91b-4ff5-a800-c6f14051ef25" />
+
+**Home Screen (Light & Dark Mode)**
+
+<img width="180" alt="Home Screen Light Mode" src="https://github.com/user-attachments/assets/3ede406f-0703-4f1b-b13e-382bda5bcf33" />
+<img width="180" alt="Home Screen Dark Mode" src="https://github.com/user-attachments/assets/832d5c24-2259-4e14-a7de-9749f002acde" />
+
+**Quiz List Screen (Light & Dark Mode)**
+
+<img width="180" alt="Quiz List Light Mode" src="https://github.com/user-attachments/assets/348608f1-3a00-4af8-98eb-c31793959ba6" />
+<img width="180" alt="Quiz List Dark Mode" src="https://github.com/user-attachments/assets/d5b32c43-3cd4-4a25-82e0-06fb14c579d2" />
+
+**History Screen (Empty State dan Jika Ada Data)**
+
+<img width="180" alt="History Empty State" src="https://github.com/user-attachments/assets/117cedb9-9196-4d04-b9d4-edf8ae84ccfe" />
+<img width="180" alt="History Light Mode" src="https://github.com/user-attachments/assets/8e4945bf-afa7-487d-a48b-14701abf6e18" />
+<img width="180" alt="History Dark Mode" src="https://github.com/user-attachments/assets/6f5e6776-7190-4fe1-846b-aaa598a1efe2" />
+<img width="180" alt="History Additional Screen" src="https://github.com/user-attachments/assets/151f61ef-f44f-44c2-988d-e70ad7324e60" />
+
+**Name Screen (Light & Dark Mode)**
+
+<img width="180" alt="Name Screen Light Mode" src="https://github.com/user-attachments/assets/559f355a-6b1f-425c-acc6-692129c9bb12" />
+<img width="180" alt="Name Screen Dark Mode" src="https://github.com/user-attachments/assets/249eeb23-3870-4b87-af41-14152ba3be8f" />
+
+**Quiz Screen (Light & Dark Mode)**
+
+<img width="180" alt="Quiz Screen Light Mode" src="https://github.com/user-attachments/assets/4899dc46-cdd7-49c5-91bb-5353fc452e14" />
+<img width="180" alt="Quiz Screen Dark Mode" src="https://github.com/user-attachments/assets/6b846c08-3808-4e27-b532-7aa6c61b03f5" />
+
+**Result Screen (Light & Dark Mode)**
+
+<img width="180" alt="Result Screen Light Mode" src="https://github.com/user-attachments/assets/f8d26da4-8369-4810-ad4d-8c1dea31c4fa" />
+<img width="180" alt="Result Screen Dark Mode" src="https://github.com/user-attachments/assets/3aa8271b-7e51-4a7d-a2db-8d5bead9175c" />
 
 ### iii. Link mockup/prototype Aplikasi
 `https://www.figma.com/make/S3e9hXZRkCJPgTcN9CpwnG/Quizly-Design?t=x3LBcKONVuMNjl5q-1`
