@@ -24,32 +24,40 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final screenWidth = MediaQuery.of(context).size.width;
 
+    final double imageSize = (screenWidth * 0.35).clamp(100.0, 180.0);
+
     return Scaffold(
-      backgroundColor: const Color(0xFFEEE5F8),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.only(bottom: screenHeight * 0.1),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                'lib/Assets/Ikon Q Ungu Berlapis Modern.png',
-                width: screenWidth * 0.5,
-                fit: BoxFit.contain,
-              ),
-              const Text(
-                "quizly",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: "Manrope",
-                  fontSize: 48,
-                  fontWeight: FontWeight.w900,
+      backgroundColor:
+          isDark ? const Color(0xFF161320) : const Color(0xFFEEE5F8),
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'lib/Assets/Ikon Q Ungu Berlapis Modern.png',
+                  width: imageSize,
+                  height: imageSize,
+                  fit: BoxFit.contain,
                 ),
-              ),
-            ],
+                const SizedBox(height: 12),
+                Text(
+                  "quizly",
+                  style: TextStyle(
+                    color: isDark ? Colors.white : Colors.black,
+                    fontFamily: "Manrope",
+                    fontSize: 44,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
