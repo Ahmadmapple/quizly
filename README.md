@@ -67,3 +67,4 @@ dibuat bertujuan untuk memenuhi nilai UTS Lab Pemrograman Mobile 3
 ### iii. Link mockup/prototype Aplikasi
 `https://www.figma.com/make/S3e9hXZRkCJPgTcN9CpwnG/Quizly-Design?t=x3LBcKONVuMNjl5q-1`
 ### iv. Link video presentasi (google drive)
+`https://drive.google.com/file/d/14ivw9sJJT3hwi0bAIq6tXn5-H9XIY6Tl/view?usp=sharing`
